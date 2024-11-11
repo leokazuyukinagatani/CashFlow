@@ -40,7 +40,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-MigrateDatabase();
+await MigrateDatabase();
 
 app.Run();
 
