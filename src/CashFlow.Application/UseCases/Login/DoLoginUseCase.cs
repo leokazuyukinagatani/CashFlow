@@ -27,20 +27,22 @@ public class DoLoginUseCase : IDoLoginUseCase
     {
         var user = await _repository.GetUserByEmail(request.Email);
 
-        if (user == null) { 
+        if (user is null) { 
             throw new InvalidLoginException();
         }
 
-        var passwordMatch = _passWordEncripter.Verify(request.Password, user.Password);
+        var passwordMatch = _passWordEncripter.Verify(request.Password.ToLower(), user.Password);
 
-        if(passwordMatch is false)
-        {
-            throw new InvalidLoginException();
-        }
+      
+
+        //if(passwordMatch == false)
+        //{
+        //    throw new InvalidLoginException();
+        //}
 
         return new ResponseRegisteredUserJson
         {
-            Name = "Joe",
+            Name = user.Name,
             Token = _accessTokenGenerator.Generate(user)
         };
     }

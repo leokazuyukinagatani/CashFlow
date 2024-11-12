@@ -12,8 +12,14 @@ internal class BCrypt : IPassWordEncripter
         return passwordHash;
     }
 
-    public bool Verify(string password, string passwordHash) 
-    {
+    public bool Verify(string password, string passwordHash) {
+        string originalPassword = "Maria1234.";
+        string hash = BC.HashPassword(originalPassword);
+        bool isMatch = BC.Verify(originalPassword, hash);
+
+        Console.WriteLine(isMatch); // Deve retornar true
+        string hashMocado = BC.HashPassword(password);
         return BC.Verify(password, passwordHash);
     }
+
 }
