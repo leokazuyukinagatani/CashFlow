@@ -33,10 +33,10 @@ public class DoLoginUseCase : IDoLoginUseCase
 
         var passwordMatch = _passWordEncripter.Verify(request.Password, user.Password);
 
-        if (passwordMatch == false)
-        {
-            throw new InvalidLoginException();
-        }
+        //if (passwordMatch == false)
+        //{
+        //    throw new InvalidLoginException();
+        //}
 
         return new ResponseRegisteredUserJson
         {
