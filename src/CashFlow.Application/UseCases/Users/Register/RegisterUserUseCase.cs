@@ -41,7 +41,12 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         await ValidateAsync(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);
-        user.Password = _passWordEncripter.Encrypt(user.Password.ToLower());
+        user.Password = _passWordEncripter.Encrypt(user.Password);
+
+        Console.WriteLine(user.Password);
+
+        var isValid = _passWordEncripter.Verify(request.Password, user.Password);
+
         user.UserIdentifier = Guid.NewGuid();
 
         await _usersWriteOnlyRepository.Add(user);
@@ -59,7 +64,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     {
         var result = new RegisterUserValidator().Validate(request);
 
-        var emailExist = await _usersReadOnlyRepository.ExistActiveUserWithEmails(request.Email);
+        var emailExist = await _usersReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
 
         if(emailExist)
         {

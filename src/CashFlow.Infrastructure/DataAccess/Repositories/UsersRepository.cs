@@ -15,7 +15,7 @@ internal class UsersRepository : IUsersReadOnlyRepository, IUsersWriteOnlyReposi
         await _dbContext.Users.AddAsync(user);
     }
 
-    public async Task<bool> ExistActiveUserWithEmails(string email)
+    public async Task<bool> ExistActiveUserWithEmail(string email)
     {
         return await _dbContext.Users.AnyAsync(user => user.Email.Equals(email));
     }

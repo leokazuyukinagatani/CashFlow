@@ -16,11 +16,12 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddScoped<IPassWordEncripter, Security.Cryptography.BCrypt>();
+
         AddDbContext(services, configuration);
         AddRepositories(services);
         AddToken(services, configuration);
 
-        services.AddScoped<IPassWordEncripter, Security.Cryptography.BCrypt>();
     }
     private static void AddToken(this IServiceCollection services, IConfiguration configuration)
     {
