@@ -31,14 +31,12 @@ public class DoLoginUseCase : IDoLoginUseCase
             throw new InvalidLoginException();
         }
 
-        var passwordMatch = _passWordEncripter.Verify(request.Password.ToLower(), user.Password);
+        var passwordMatch = _passWordEncripter.Verify(request.Password, user.Password);
 
-      
-
-        //if(passwordMatch == false)
-        //{
-        //    throw new InvalidLoginException();
-        //}
+        if (passwordMatch == false)
+        {
+            throw new InvalidLoginException();
+        }
 
         return new ResponseRegisteredUserJson
         {
