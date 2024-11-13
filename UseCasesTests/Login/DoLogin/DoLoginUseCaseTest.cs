@@ -42,7 +42,7 @@ public class DoLoginUseCaseTest
         var useCase = CreateUseCase(user, request.Password);
 
         // Act
-        var act = async ()=> await useCase.Execute(request);
+        var act = async () => await useCase.Execute(request);
 
         // Assert
         var result = await act.Should().ThrowAsync<InvalidLoginException>();
