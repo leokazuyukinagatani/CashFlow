@@ -26,7 +26,7 @@ public class GetExpenseByIdUseCaseTest
         
         // Assert
         result.Should().NotBeNull();
-        result.Id.Should().Be(expense.Id.ToString());
+        result.Id.Should().Be(expense.Id);
         result.Title.Should().Be(expense.Title);
         result.Description.Should().Be(expense.Description);
         result.Date.Should().Be(expense.Date);
@@ -40,8 +40,10 @@ public class GetExpenseByIdUseCaseTest
         // Arrange
         var loggedUser = UserBuilder.Build();
         var useCase = CreateUseCase(loggedUser);
+
         // Act
         var act = async () => await useCase.Execute(id: 1000);
+
         // Assert
         var result = await act.Should().ThrowAsync<NotFoundException>();
         result.Where(ex => ex.GetErrors().Count.Equals(1) && ex.GetErrors().Contains(ResourceErrorMessages.EXPENSE_NOT_FOUND));
