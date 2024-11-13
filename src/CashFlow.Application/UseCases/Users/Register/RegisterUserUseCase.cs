@@ -14,7 +14,7 @@ namespace CashFlow.Application.UseCases.Users.Register;
 public class RegisterUserUseCase : IRegisterUserUseCase
 {
     private readonly IMapper _mapper;
-    private readonly IPassWordEncripter _passWordEncripter;
+    private readonly IPasswordEncripter _passwordEncripter;
     private readonly IUsersReadOnlyRepository _usersReadOnlyRepository;
     private readonly IUsersWriteOnlyRepository _usersWriteOnlyRepository;
     private readonly IAccessTokenGenerator _tokenGenerator;
@@ -23,13 +23,13 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     public RegisterUserUseCase(
         IMapper mapper,
         IUnitOfWork unitOfWork,
-        IPassWordEncripter passWordEncripter, 
+        IPasswordEncripter passwordEncripter, 
         IAccessTokenGenerator tokenGenerator,
         IUsersReadOnlyRepository usersReadOnlyRepository,
         IUsersWriteOnlyRepository usersWriteOnlyRepository)
     {
         _mapper = mapper;
-        _passWordEncripter = passWordEncripter;
+        _passwordEncripter = passwordEncripter;
         _usersReadOnlyRepository = usersReadOnlyRepository;
         _tokenGenerator = tokenGenerator;
         _usersWriteOnlyRepository = usersWriteOnlyRepository;
@@ -41,7 +41,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         await ValidateAsync(request);
 
         var user = _mapper.Map<Domain.Entities.User>(request);
-        user.Password = _passWordEncripter.Encrypt(request.Password);
+        user.Password = _passwordEncripter.Encrypt(request.Password);
 
         user.UserIdentifier = Guid.NewGuid();
 

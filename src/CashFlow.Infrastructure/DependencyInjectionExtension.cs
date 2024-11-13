@@ -17,7 +17,7 @@ public static class DependencyInjectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IPassWordEncripter, Security.Cryptography.BCrypt>();
+        services.AddScoped<IPasswordEncripter, Security.Cryptography.BCrypt>();
 
         AddRepositories(services);
         AddToken(services, configuration);

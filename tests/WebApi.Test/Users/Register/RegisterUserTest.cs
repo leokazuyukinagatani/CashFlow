@@ -1,9 +1,12 @@
-﻿using CommonTestUtilities.Requests;
+﻿using CashFlow.Exception;
+using CommonTestUtilities.Requests;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
+using System.Globalization;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using WebApi.Tests.InlineData;
 
 namespace WebApi.Tests.Users.Register;
 
@@ -34,4 +37,30 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
         
 
     }
+
+    [Theory]
+    [ClassData(typeof(CultureInlineDataTest))]
+    public async Task Error_Empty_Name(string culture)
+    {
+        var request = RequestLoginJsonBuilder.Build();
+
+        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(culture));
+
+        var response = await _httpClient.PostAsJsonAsync(METHOD, request);
+
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+        var reponseBody = await response.Content.ReadAsStreamAsync();
+
+        var responseData = await JsonDocument.ParseAsync(reponseBody);
+
+        var errors = responseData.RootElement.GetProperty("errorMessages").EnumerateArray();
+
+        var expectedMessage = ResourceErrorMessages.ResourceManager.GetString("NAME_EMPTY", new CultureInfo(culture));
+
+        errors.Should().HaveCount(1).And.Contain(c => c.GetString()!.Equals(expectedMessage));
+
+    }
+
+
 }
