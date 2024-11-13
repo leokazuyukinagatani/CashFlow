@@ -70,10 +70,10 @@ public class ReGisterUserUseCaseTest
     {
         var mapper = MapperBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
-        var writeRepository = UserWriteOnlyRepositoryBuilder.Build();
+        var writeRepository = UsersWriteOnlyRepositoryBuilder.Build();
         var passwordEncripter = new PasswordEncrypterBuilder().Build();
         var tokenGenerator = JwtTokenGeneratorBuilder.Build();
-        var readRepository = new UserReadOnlyRepositoryBuilder();
+        var readRepository = new UsersReadOnlyRepositoryBuilder();
 
         if(string.IsNullOrWhiteSpace(email) is false)
         {

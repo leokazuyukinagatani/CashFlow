@@ -2,7 +2,7 @@
 using Moq;
 
 namespace CommonTestUtilities.Repositories;
-public class ExpenseWriteOnlyRepositoryBuilder
+public class ExpensesWriteOnlyRepositoryBuilder
 {
     public static IExpensesWriteOnlyRepository Build()
     {

@@ -77,7 +77,7 @@ public class DoLoginUseCaseTest
     {
         var passwordEncripter = new PasswordEncrypterBuilder().Verify(password).Build();
         var tokenGenerator = JwtTokenGeneratorBuilder.Build();
-        var readRepository = new UserReadOnlyRepositoryBuilder().GetUserByEmail(user).Build();
+        var readRepository = new UsersReadOnlyRepositoryBuilder().GetUserByEmail(user).Build();
 
         return new DoLoginUseCase(readRepository, passwordEncripter, tokenGenerator);
     }

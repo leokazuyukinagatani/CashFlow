@@ -10,22 +10,18 @@ using WebApi.Tests.InlineData;
 
 namespace WebApi.Tests.Users.Register;
 
-public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
+public class RegisterUserTest : CashFlowClassFixture
 {
     private const string METHOD = "api/user";
-
-    private readonly HttpClient _httpClient;
-    public RegisterUserTest(CustomWebApplicationFactory webApplicationFactory)
-    {
-        _httpClient = webApplicationFactory.CreateClient();
-    }
+    public RegisterUserTest(CustomWebApplicationFactory webApplicationFactory) : base(webApplicationFactory)
+    {}
 
     [Fact]
     public async Task Success()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
 
-        var result = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var result = await DoPost(requestUri:METHOD, request:request);
 
         result.StatusCode.Should().Be(HttpStatusCode.Created);
         var body = await result.Content.ReadAsStreamAsync();
@@ -42,11 +38,10 @@ public class RegisterUserTest : IClassFixture<CustomWebApplicationFactory>
     [ClassData(typeof(CultureInlineDataTest))]
     public async Task Error_Empty_Name(string culture)
     {
-        var request = RequestLoginJsonBuilder.Build();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Name = string.Empty;
 
-        _httpClient.DefaultRequestHeaders.AcceptLanguage.Add(new StringWithQualityHeaderValue(culture));
-
-        var response = await _httpClient.PostAsJsonAsync(METHOD, request);
+        var response = await DoPost(requestUri:METHOD, request:request, culture:culture);
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
