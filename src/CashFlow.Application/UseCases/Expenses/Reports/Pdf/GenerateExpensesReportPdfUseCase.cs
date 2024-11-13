@@ -155,9 +155,8 @@ public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCas
 
         paragraph.AddLineBreak();
 
-
         paragraph.AddFormattedText(
-            $"{totalExpenses} {CURRENCY_SYMBOL}"
+            $"{totalExpenses:F2} {CURRENCY_SYMBOL}"
             , new Font
             {
                 Name = FontHelper.WORKSANS_BLACK,
@@ -207,7 +206,7 @@ public class GenerateExpensesReportPdfUseCase : IGenerateExpensesReportPdfUseCas
 
     private void AddAmountForExpense(Cell cell , decimal expenseAmount)
     {
-        cell.AddParagraph($"-{expenseAmount} {CURRENCY_SYMBOL}");
+        cell.AddParagraph($"-{expenseAmount:F2} {CURRENCY_SYMBOL}");
         cell.Format.Font = new Font
         {
             Name = FontHelper.WORKSANS_REGULAR,
