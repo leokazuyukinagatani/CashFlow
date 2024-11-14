@@ -20,7 +20,7 @@ public class RegisterExpenseTest : CashFlowClassFixture
     public async Task Success()
     {
         // Arrange
-        var request = RequestRegisterExpenseJsonBuilder.Build();
+        var request = RequestExpenseJsonBuilder.Build();
 
         // Act
         var result = await DoPost(requestUri: METHOD,token : _token, request: request);
@@ -41,7 +41,7 @@ public class RegisterExpenseTest : CashFlowClassFixture
     public async Task Error_Title_Empty(string culture)
     {
         // Arrange
-        var request = RequestRegisterExpenseJsonBuilder.Build();
+        var request = RequestExpenseJsonBuilder.Build();
         request.Title = string.Empty;
         
         // Act
