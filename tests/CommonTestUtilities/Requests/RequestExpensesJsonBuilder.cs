@@ -4,7 +4,7 @@ using CashFlow.Communication.Requests;
 
 namespace CommonTestUtilities.Requests;
 
-public class RequestExpensesJsonBuilder
+public class RequestExpenseJsonBuilder
 {
     public static RequestExpenseJson Build()
     {
@@ -17,3 +17,4 @@ public class RequestExpensesJsonBuilder
 
     }
 }
+

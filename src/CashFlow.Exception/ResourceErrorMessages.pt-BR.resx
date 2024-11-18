@@ -138,4 +138,22 @@
   <data name="EXPENSE_NOT_FOUND" xml:space="preserve">
     <value>Desepesas não encontrada.</value>
   </data>
+  <data name="EMAIL_EMPTY" xml:space="preserve">
+    <value>O e-mail está vazio.</value>
+  </data>
+  <data name="NAME_EMPTY" xml:space="preserve">
+    <value>O nome está vazio.</value>
+  </data>
+  <data name="EMAIL_INVALID" xml:space="preserve">
+    <value>O e-mail está inválido.</value>
+  </data>
+  <data name="PASSWORD_INVALID" xml:space="preserve">
+    <value>Sua senha deve ter pelo menos 8 caracteres e incluir pelo menos uma letra maiúscula, uma letra e um caracter especial(( ! ? * . ).</value>
+  </data>
+  <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+    <value>Esse e-mail já está sendo utilizado.</value>
+  </data>
+  <data name="EMAIL_OR_PASSWORD_INVALID" xml:space="preserve">
+    <value>E-mail e/ou senha inválidos.</value>
+  </data>
 </root>
